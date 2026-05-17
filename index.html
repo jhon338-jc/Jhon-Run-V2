@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>JHON RUN - DEV BY JHON338</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="app-container">
+    
+    <div class="header-title">
+        <img src="asset/logojhon1.png" alt="JHON RUN">
+    </div>
+
+    <div id="screen-splash" class="screen active">
+        <div class="content-center">
+            <img src="asset/logojhon1.png" alt="LOGO BESAR" style="width: 85%; max-width: 300px; margin: 0 auto; filter: drop-shadow(6px 6px 0px #000); animation: float 3s ease-in-out infinite;">
+            
+            <div class="loading-spinner"></div>
+
+            <button class="btn-menu btn-img-wrapper" onclick="masukMenuPlay()">
+                <img src="asset/masuk.png" alt="MULAI" style="animation: pulse 2s infinite; width: 190px;">
+            </button>
+        </div>
+    </div>
+
+    <div id="screen-menu" class="screen">
+        <div class="content-center">
+            <button class="btn-menu btn-img-wrapper" onclick="switchScreen('screen-game')">
+                <img src="asset/play.png" alt="PLAY">
+            </button>
+            <button class="btn-menu btn-img-wrapper" onclick="switchScreen('screen-shop')">
+                <img src="asset/shop.png" alt="SHOP">
+            </button>
+            <button class="btn-menu btn-img-wrapper" onclick="switchScreen('screen-setting')">
+                <img src="asset/setting.png" alt="SETTING">
+            </button>
+        </div>
+    </div>
+
+    <div id="screen-shop" class="screen">
+        <div class="content-center">
+            <div class="shop-text" style="color:#ffde59;" id="shop-koin">KOIN: 0</div>
+            <div class="shop-text" style="color:white; margin-bottom:25px;" id="shop-efek">EFEK DIMILIKI: 0</div>
+            
+            <button class="btn-menu btn-img-wrapper" onclick="beliEfek()">
+                <img src="asset/beli-efek-5-koin.png" alt="BELI EFEK">
+            </button>
+            <button class="btn-menu btn-img-wrapper" onclick="switchScreen('screen-menu')">
+                <img src="asset/back.png" alt="BACK">
+            </button>
+        </div>
+    </div>
+
+    <div id="screen-setting" class="screen">
+        <div class="content-center">
+            <button class="btn-menu btn-img-wrapper" id="btn-suara-on" onclick="setSound(true)">
+                <img src="asset/suara-on.png" alt="SUARA ON">
+            </button>
+            <button class="btn-menu btn-img-wrapper" id="btn-suara-off" onclick="setSound(false)">
+                <img src="asset/suara-of.png" alt="SUARA OFF">
+            </button>
+            
+            <input type="text" id="input-key" placeholder="MASUKAN KEY...">
+            
+            <button class="btn-menu btn-img-wrapper" onclick="cekKey()">
+                <img src="asset/submit-key.png" alt="SUBMIT KEY">
+            </button>
+            
+            <button class="btn-menu btn-img-wrapper" onclick="switchScreen('screen-menu')">
+                <img src="asset/back.png" alt="BACK">
+            </button>
+        </div>
+    </div>
+
+    <div id="screen-game" class="screen">
+        <div id="game-canvas-area">
+            
+            <div id="ui-top">
+                <div id="score-board">
+                    <div class="score-text" id="ui-score">SCOR: 0</div>
+                    <div class="score-text" id="ui-high">HIGH: 0</div>
+                    <div class="score-text" id="ui-jarak">JARAK: 0M</div>
+                    <div class="score-text" id="ui-koin" style="color:#ffde59;">KOIN: 0</div>
+                    <button id="btn-use-effect" onclick="pakaiEfek()">PAKAI EFEK (0)</button>
+                </div>
+                <button id="btn-pause" onclick="togglePause()"><img src="asset/tombol-=.png" alt="PAUSE"></button>
+            </div>
+            
+            <div id="start-overlay">KLIK "STAR" UNTUK MAIN</div>
+
+            <canvas id="gameCanvas"></canvas>
+
+            <div id="popup-overlay">
+                <div class="popup-title-main" id="popup-main-text">JEDA</div>
+                <div class="popup-title-sub" id="popup-sub-text"></div>
+                
+                <button class="btn-menu btn-img-wrapper" id="btn-lanjut" onclick="togglePause()">
+                    <img src="asset/resume.png" alt="LANJUT">
+                </button>
+                <button class="btn-menu btn-img-wrapper" onclick="startGameFlow()">
+                    <img src="asset/replay.png" alt="REPLAY">
+                </button>
+                <button class="btn-menu btn-img-wrapper" onclick="quitGame()">
+                    <img src="asset/quit-game.png" alt="QUIT GAME">
+                </button>
+            </div>
+        </div>
+
+        <div id="controls-area">
+            <div class="d-pad">
+                <button id="btn-left" class="control-img-btn">
+                    <img src="asset/mundur.png" alt="KIRI">
+                </button>
+                <button id="btn-right" class="control-img-btn">
+                    <img src="asset/maju.png" alt="KANAN">
+                </button>
+            </div>
+            <button id="btn-start-game" class="control-img-btn" onclick="startGameFlow()">
+                <img src="asset/star.png" style="width: 80px; height: 80px;" alt="STAR">
+            </button>
+            <button id="btn-jump" class="control-img-btn">
+                <img src="asset/up.png" style="width: 80px; height: 80px;" alt="UP">
+            </button>
+        </div>
+    </div>
+
+    <div class="footer-title" style="position:relative;">
+        <div style="position:absolute; left:15px; top:50%; transform:translateY(-50%); color:white !important; text-shadow: 2px 2px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000 !important; text-align: left; font-size: 16px; line-height: 1.2;">
+            DEV JHON338<br>VERSI 2.5
+        </div>
+        
+        <span id="admin-badge" style="display:none; position:absolute; right:15px; top:50%; transform:translateY(-50%);">
+            <img src="asset/admin.png" alt="MODE AKTIF" style="height: 35px; filter: drop-shadow(2px 2px 0px #000);">
+        </span>
+    </div>
+
+    <div id="custom-alert-overlay">
+        <div id="custom-alert-box">
+            <div id="custom-alert-text">PESAN</div>
+            <button class="btn-menu btn-img-wrapper" onclick="closeCustomAlert()">
+                <img src="asset/exit.png" alt="OKE BANG!">
+            </button>
+        </div>
+    </div>
+
+</div>
+
+<audio id="bgm" loop>
+    <source src="asset/Tetris.mp3" type="audio/mpeg">
+</audio>
+
+<script src="script.js"></script>
+</body>
+</html>
